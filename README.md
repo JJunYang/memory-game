@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Two difficulty levels for choosing.
 * Steps are recorded as performance.
 
-## Available Scripts
+## Usage
 
 In the project directory, you can run:
 
