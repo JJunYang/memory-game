@@ -5,6 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * This is a game aiming to match all cards correctly.
 * Two difficulty levels for choosing.
 * Steps are recorded as performance.
+<img src="https://github.com/jjyang1108/memory-game/blob/master/IMAGE/ScreenShot%20.png" width="500">
 
 ## Usage
 
