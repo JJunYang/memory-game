@@ -1,31 +1,11 @@
 import React, { Component } from "react";
 import Card from "../card/card";
 import "./playPage.css";
+import { hardSize, Symbols } from "../../data/symbols";
 
 var shuffle = require("lodash.shuffle");
-const SIDE = 6;
-const SYMBOLS = [
-  "🎃",
-  "🎂",
-  "🎅",
-  "🐰",
-  "🎥",
-  "🍂",
-  "👨",
-  "💪",
-  "🎓",
-  "👩",
-  "🎊",
-  "🏊",
-  "👑",
-  "☪",
-  "🌱",
-  "☘",
-  "☀",
-  "🏈",
-  "💘",
-  "⚽",
-];
+const SIDE = hardSize;
+const SYMBOLS = Symbols;
 export default class PlayPage extends Component {
   state = {
     cards: this.generateCards(),
@@ -61,7 +41,7 @@ export default class PlayPage extends Component {
     if (index === selectedItem[0]) {
       return;
     }
-    if(matchedItem.includes(index)){
+    if (matchedItem.includes(index)) {
       return;
     }
     const match = cards[selectedItem[0]] === cards[index];
