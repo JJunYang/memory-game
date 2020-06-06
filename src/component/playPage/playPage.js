@@ -11,6 +11,7 @@ export default class PlayPage extends Component {
     cards: this.generateCards(),
     selectedItem: [],
     matchedItem: [],
+    tryNum: 0,
   };
 
   generateCards() {
@@ -37,7 +38,7 @@ export default class PlayPage extends Component {
     this.handleNewPair(index);
   };
   handleNewPair = (index) => {
-    const { cards, selectedItem, matchedItem } = this.state;
+    const { cards, selectedItem, matchedItem, tryNum } = this.state;
     if (index === selectedItem[0]) {
       return;
     }
@@ -54,7 +55,7 @@ export default class PlayPage extends Component {
     }
 
     setTimeout(() => {
-      this.setState({ selectedItem: [] });
+      this.setState({ selectedItem: [], tryNum: tryNum + 1 });
       // console.log(this.state.matchedItem);
     }, 300);
   };
@@ -72,17 +73,21 @@ export default class PlayPage extends Component {
 
   render() {
     return (
-      <div className="row">
-        {this.state.cards.map((card, i) => (
-          <Card
-            key={i}
-            card={card}
-            index={i}
-            status={this.checkStatus(i)}
-            onClick={this.handleClick}
-          />
-        ))}
-      </div>
+      <>
+        <p className="ShowInfo d-flex justify-content-center">TryNum: {this.state.tryNum}</p>
+        <div className="row">
+          {this.state.cards.map((card, i) => (
+            <Card
+              key={i}
+              card={card}
+              index={i}
+              status={this.checkStatus(i)}
+              onClick={this.handleClick}
+            />
+          ))}
+        </div>
+        {this.state.matchedItem.length === 2 ? <div className="alert alert-success">You Make it !</div> : ""}
+      </>
     );
   }
 }

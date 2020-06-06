@@ -1,0 +1,8 @@
+html,body{
+    height: 100%;
+    background: #C9D6FF;  /* fallback for old browsers */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background: -webkit-linear-gradient(to bottom, #E2E2E2, #C9D6FF);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to bottom, #E2E2E2, #C9D6FF); 
+  }
