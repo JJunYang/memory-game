@@ -1,0 +1,31 @@
+#nav {
+  margin-top: 20px;
+  color: black;
+  text-align: center;
+  font-family: "Ubuntu", sans-serif;
+}
+button {
+  border: none;
+  text-transform: uppercase;
+  color: steelblue;
+  font-weight: 500;
+  background: none;
+}
+button:hover {
+  color: white;
+  background-color: steelblue;
+}
+
+button:focus {
+  outline: 0;
+}
+
+.selected {
+  color: white;
+  background-color: steelblue;
+}
+#message {
+  display: inline-block;
+  width: 20%;
+  color: rgb(11, 133, 120);
+}

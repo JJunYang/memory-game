@@ -1,28 +1,34 @@
 import React, { Component } from "react";
 import Card from "../card/card";
 import "./playPage.css";
-import { hardSize, Symbols } from "../../data/symbols";
+import { Symbols } from "../../data/symbols";
+import Navbar from "../navbar/navbar";
 
 var shuffle = require("lodash.shuffle");
-const SIDE = hardSize;
 const SYMBOLS = Symbols;
 export default class PlayPage extends Component {
-  state = {
-    cards: this.generateCards(),
-    selectedItem: [],
-    matchedItem: [],
-    tryNum: 0,
-  };
-
-  generateCards() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cards: [],
+      selectedItem: [],
+      matchedItem: [],
+      tryNum: 0,
+      size: 36,
+    };
+  }
+  componentDidMount() {
+    this.generateCards(this.state.size);
+  }
+  generateCards(SIZE) {
     const result = [];
-    const size = SIDE * SIDE;
+    // const size = SIDE * SIDE;
     const cards = shuffle(SYMBOLS);
-    while (result.length < size) {
+    while (result.length < SIZE) {
       const card = cards.pop();
       result.push(card, card);
     }
-    return shuffle(result);
+    this.setState({ cards: shuffle(result) });
   }
   handleClick = (index) => {
     const { selectedItem } = this.state;
@@ -71,10 +77,51 @@ export default class PlayPage extends Component {
     return matched ? "visible" : "hide";
   }
 
+  clickNewGame = async () => {
+    await this.setState({
+      selectedItem: [],
+      matchedItem: [],
+      tryNum: 0,
+    });
+    this.generateCards(this.state.size);
+  };
+  clickHardBtn = async () => {
+    await this.setState({
+      selectedItem: [],
+      matchedItem: [],
+      size: 36,
+      tryNum: 0,
+    });
+    this.generateCards(this.state.size);
+    var hardBtn = document.getElementById("hardBtn");
+    var easyBtn = document.getElementById("easyBtn");
+    hardBtn.classList.add("selected");
+    easyBtn.classList.remove("selected");
+  };
+  clickEasyBtn = async () => {
+    await this.setState({
+      selectedItem: [],
+      matchedItem: [],
+      size: 24,
+      tryNum: 0,
+    });
+    this.generateCards(this.state.size);
+    var hardBtn = document.getElementById("hardBtn");
+    var easyBtn = document.getElementById("easyBtn");
+    hardBtn.classList.remove("selected");
+    easyBtn.classList.add("selected");
+  };
+
   render() {
     return (
       <>
-        <p className="ShowInfo d-flex justify-content-center">TryNum: {this.state.tryNum}</p>
+        <h1>Try Your Best To Remember</h1>
+        <Navbar
+          num={this.state.tryNum}
+          clickNewGame={this.clickNewGame}
+          clickHardBtn={this.clickHardBtn}
+          clickEasyBtn={this.clickEasyBtn}
+        />
         <div className="row">
           {this.state.cards.map((card, i) => (
             <Card
@@ -86,7 +133,13 @@ export default class PlayPage extends Component {
             />
           ))}
         </div>
-        {this.state.matchedItem.length === 2 ? <div className="alert alert-success">You Make it !</div> : ""}
+        {this.state.matchedItem.length === this.state.size ? (
+          <div className="alert alert-success">
+            You Make it ! Total Steps: {this.state.tryNum}{" "}
+          </div>
+        ) : (
+          ""
+        )}
       </>
     );
   }
